@@ -7,7 +7,10 @@ export type Intervention = {
   articleType: string;
   isNonClos: boolean;
   userId: string;
-  userName?: string;
+  user?: {
+    fullName: string;
+    username: string;
+  };
 };
 
 type FilterParams = {
