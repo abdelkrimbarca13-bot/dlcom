@@ -4,15 +4,15 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const adminEmail = 'admin@admin.com';
+  const adminUsername = 'admin';
   const adminPassword = 'adminpassword123';
   const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
   const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
+    where: { username: adminUsername },
     update: {},
     create: {
-      email: adminEmail,
+      username: adminUsername,
       fullName: 'Administrateur Système',
       passwordHash: hashedPassword,
       role: 'ADMIN',
@@ -21,7 +21,7 @@ async function main() {
 
   console.log('-----------------------------------------------');
   console.log('Compte Administrateur créé avec succès !');
-  console.log(`Email : ${adminEmail}`);
+  console.log(`Nom d'utilisateur : ${adminUsername}`);
   console.log(`Mot de passe : ${adminPassword}`);
   console.log('-----------------------------------------------');
 }
