@@ -10,7 +10,7 @@ const interventionSchema = z.object({
   numeroDossier: z.string().min(3, "Le numéro de dossier doit avoir au moins 3 caractères"),
   articleType: z.string().min(1, "Veuillez sélectionner un type d'article"),
   autreArticleType: z.string().optional(),
-  isNonClos: z.boolean().default(false),
+  isNonClos: z.boolean(),
   commentaire: z.string().min(5, "Le commentaire doit être plus détaillé"),
   date: z.string().min(1, "La date est obligatoire"),
 }).refine((data) => {
@@ -38,9 +38,11 @@ export default function InterventionEntryForm({ onSuccess }: { onSuccess?: () =>
   } = useForm<InterventionFormValues>({
     resolver: zodResolver(interventionSchema),
     defaultValues: {
+      numeroDossier: '',
       isNonClos: false,
       date: new Date().toISOString().split('T')[0],
       articleType: '',
+      commentaire: '',
     },
   });
 

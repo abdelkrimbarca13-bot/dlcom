@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import UserManagement from '@/components/UserManagement';
-import { useAdminAnalytics } from '@/hooks/useAdminAnalytics';
+import { useAdminAnalytics, type Intervention } from '@/hooks/useAdminAnalytics';
 import { 
   BarChart3, 
   Users, 
@@ -25,7 +25,7 @@ import {
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'stats' | 'users' | 'list' | 'articles'>('stats');
-  const [interventions, setInterventions] = useState<any[]>([]);
+  const [interventions, setInterventions] = useState<Intervention[]>([]);
   const [users, setUsers] = useState<any[]>([]);
   const [articleTypes, setArticleTypes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
