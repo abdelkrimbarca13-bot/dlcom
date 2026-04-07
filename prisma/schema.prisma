@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  username      String         @unique
+  passwordHash  String         @map("password_hash")
+  fullName      String         @map("full_name")
+  role          String         @default("EMPLOYEE")
+  interventions Intervention[]
+
+  @@map("users")
+}
+
+model Intervention {
+  id                   String   @id @default(uuid())
+  numeroDossier        String   @unique @map("numero_dossier")
+  dateCreation         DateTime @default(now()) @map("date_creation")
+  articleType          String   @map("article_type")
+  commentaireTechnicien String   @map("commentaire_technicien")
+  retourAdmin          String?  @map("retour_admin")
+  luParTechnicien      Boolean  @default(false) @map("lu_par_technicien")
+  isNonClos            Boolean  @default(false) @map("is_non_clos")
+  
+  user                 User     @relation(fields: [userId], references: [id])
+  userId               String   @map("user_id")
+
+  @@map("interventions")
+}
+
+model ArticleType {
+  id    String @id @default(uuid())
+  name  String @unique
+
+  @@map("article_types")
+}
